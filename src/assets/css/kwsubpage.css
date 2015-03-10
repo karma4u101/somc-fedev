@@ -1,0 +1,73 @@
+div#kwnav-widget-wrapper{
+	display: block;
+	width:100%;
+    max-width:300px;
+    hight:auto;	
+} 
+div#togglekwlist{
+	display: inline-block;
+	width:100%;
+	hight:auto;
+}
+div#togglekwlist div {
+	cursor: pointer;
+	display: inline-block;
+	font-size:75%;
+}
+ul.nav-kwnav {
+	width:100%;
+	/*max-width:300px;*/
+}
+.nav-kwnav ul {
+list-style: none;
+padding: 0px;
+}
+.nav-kwnav > li.top-decor {
+border-left: 5px solid #000;
+border-top: 1px solid #e6e6e6;
+}
+.nav-kwnav > li.top-decor:last-child {
+	border-bottom: 1px solid #e6e6e6;
+}
+.nav-kwnav li.divider {
+border-bottom: 1px solid #e6e6e6;
+}
+.nav-kwnav > li {
+margin: 1px 0px;
+}
+.nav-kwnav > li.kwnav-active-background {
+background-color: #e6e6e6;
+}
+.nav-kwnav li a {
+color: #4d4d4f;
+display: block;
+text-decoration: none;
+outline: none;
+}
+.nav-kwnav li a span {
+color: #4d4d4f;
+font-size:75%;
+}
+.nav-kwnav li a {
+padding: 5px 5px 5px 5px;
+}
+.nav-kwnav li li a {
+padding: 5px 5px 5px 15px;
+}
+.nav-kwnav li li li a {
+padding: 5px 5px 5px 25px;
+}
+.nav-kwnav li li li li a {
+padding: 5px 5px 5px 35px;
+}
+.nav-kwnav li li li li li a {
+padding: 5px 5px 5px 40px;
+}
+.nav-kwnav li li li li li li a {
+padding: 5px 5px 5px 45px;
+}
+.nav-kwnav li a:hover, .nav-kwnav li a:focus {
+background-color: #d1d1d1;
+}
+
+
