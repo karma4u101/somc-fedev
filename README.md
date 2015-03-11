@@ -11,8 +11,13 @@ To remove this dependency the plugin's css file needs to be extended to handle t
 # Images showing the widget in action
 
 List collapsed and sorted by title in ascending order, also as required title's truncated at 20 characters (on mose over the ful title will be shown in a tooltip) 
+
 ![](https://github.com/karma4u101/somc-fedev/blob/master/doc-img/kwlist1.png) 
+
 List expanded in one level in one bransh, after list has been sorted in descending order.
+
 ![](https://github.com/karma4u101/somc-fedev/blob/master/doc-img/kwlist2.png) 
+
 List expanded in two levels.
+
 ![](https://github.com/karma4u101/somc-fedev/blob/master/doc-img/kwlist3.png)   
