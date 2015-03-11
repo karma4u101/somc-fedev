@@ -32,16 +32,13 @@ class KWSubpageListWidget extends WP_Widget {
 				'order'   => 'ASC');
 		//get a flat array of all subpages
 		$gasubpages = $this->get_all_subpages($parent_page_id, $gaargs);
-// 		$gaargs2 = Array('orderby' => 'title',
-// 				'order'   => 'DESC');		
-// 		$gasubpages2 = $this->get_all_subpages($parent_page_id, $gaargs2, ARRAY_A);
-		//rem above in favor for array_reverse to avoid hitting the db twice
-		 $gasubpages2 = array_reverse($gasubpages); 
-		//transform the array to a contain nested child arrays with children pages
-		$tree = $this->buildTree($gasubpages,$parent_page_id);
-		$revtree = $this->buildTree($gasubpages2,$parent_page_id);
-	
-		?>
+		if (sizeof($gasubpages) > 0) {
+		    //rem above in favor for array_reverse to avoid hitting the db twice
+		    $gasubpages2 = array_reverse($gasubpages); 
+		    //transform the array to a contain nested child arrays with children pages
+		    $tree = $this->buildTree($gasubpages,$parent_page_id);
+		    $revtree = $this->buildTree($gasubpages2,$parent_page_id);    
+		    ?>
 			        <script>
 					    var kwmenu = <?php echo json_encode($tree); ?>;
 					    var kwmenu2 = <?php echo json_encode($revtree); ?>;
@@ -53,7 +50,8 @@ class KWSubpageListWidget extends WP_Widget {
 			        <ul id="kwnav-container-asc" class="nav nav-kwnav" style="display:"></ul>
 			        <ul id="kwnav-container-desc" class="nav nav-kwnav" style="display:none"></ul>
 			        </div> 
-			        <?php			
+			<?php			
+		}
 	}
 
 	//recursively build a nested parent, child relation array structure from a flat array
@@ -102,10 +100,40 @@ class KWSubpageListWidget extends WP_Widget {
 		return $subpages;
 	}
 	
-// 	public function display(){
-// 		return $this->kwsubpage_list();
-// 	}
+	//first take on adding shortcode functionality, currently not working + needs refactoring 
+	//to avoid dublication of code.   
+	public function display(){
+		global $post;
+		// Determine parent page ID
+		$parent_page_id = ( '0' != $post->post_parent ? $post->post_parent : $post->ID );
+		$gaargs = Array('orderby' => 'title',
+				'order'   => 'ASC');
+		//get a flat array of all subpages
+		$gasubpages = $this->get_all_subpages($parent_page_id, $gaargs);
+		$widgetContent = '';
+		if (sizeof($gasubpages) > 0) {
+		    $gasubpages2 = array_reverse($gasubpages);
+		    //transform the array to a contain nested child arrays with children pages
+		    $tree = $this->buildTree($gasubpages,$parent_page_id);
+		    $revtree = $this->buildTree($gasubpages2,$parent_page_id);		
+		    $widgetContent = '<script>';
+		    $widgetContent .= 'var kwmenu = ' . json_encode($tree) . ';';
+		    $widgetContent .= 'var kwmenu2 = ' . json_encode($revtree) . ';';
+		    $widgetContent .= '</script>';
+		    $widgetContent .= '<div id="kwnav-widget-wrapper">';
+		    $widgetContent .= '<div id="togglekwlist">';
+		    $widgetContent .= '<div class="pull-right glyphicon glyphicon-sort"></div>';
+		    $widgetContent .= '</div>'; 
+		    $widgetContent .= '<ul id="kwnav-container-asc" class="nav nav-kwnav" style="display:"></ul>';
+		    $widgetContent .= '<ul id="kwnav-container-desc" class="nav nav-kwnav" style="display:none"></ul>';
+		    $widgetContent .= '</div>'; 	
+		}	
+		return $widgetContent;
+	}
 
+//call to adding shortcode is removed and method commented out due to problem initializing the widget
+//as a shortcode, my guess is that I probably need to initialize the widget as a singelton instance 
+//and refer to the the instance in the add_shortcode function(?).
 // 	protected function _init() {
 // 		error_log("in _init");
 // 	    add_shortcode( 'kwsubpage-list', array( $this , 'display' ) );	
